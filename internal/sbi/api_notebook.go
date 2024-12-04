@@ -18,10 +18,28 @@ func (s *Server) getNotebookRoute() []Route {
 			// curl -X GET http://127.0.0.163:8000/spyfamily/ -w "\n"
 		},
 		{
-			Name:    "SPYxFAMILY Character",
-			Method:  http.MethodGet,
-			Pattern: "/character/:Name",
-			APIFunc: s.HTTPSerchSpyFamilyCharacter,
+			Name:    "Update Note",
+			Method:  http.MethodPost,
+			Pattern: "/:Title/:Content",
+			APIFunc: s.HTTPUpdateNote,
+			// Use
+			// curl -X GET http://127.0.0.163:8000/spyfamily/Anya -w "\n"
+			// "Character: Anya Forger"
+		},
+		{
+			Name:    "Note Append with whitespace at front.",
+			Method:  http.MethodPost,
+			Pattern: "/:Title/append/:Content_append",
+			APIFunc: s.HTTPNoteWhitespaceAppend,
+			// Use
+			// curl -X GET http://127.0.0.163:8000/spyfamily/Anya -w "\n"
+			// "Character: Anya Forger"
+		},
+		{
+			Name:    "Create Note",
+			Method:  http.MethodPut,
+			Pattern: "/:Title/:Content",
+			APIFunc: s.HTTPCreateNote,
 			// Use
 			// curl -X GET http://127.0.0.163:8000/spyfamily/Anya -w "\n"
 			// "Character: Anya Forger"
@@ -38,17 +56,51 @@ func (s *Server) HTTPShowNote(c *gin.Context) {
 		return
 	}
 
-	s.Processor().FindSpyFamilyCharacterName(c, targetName)
+	s.Processor().FindNote(c, targetName)
 }
 
-func (s *Server) HTTPSerchSpyFamilyCharacter(c *gin.Context) {
-	logger.SBILog.Infof("In HTTPSerchCharacter")
+func (s *Server) HTTPUpdateNote(c *gin.Context) {
+	logger.SBILog.Infof("In HTTPUpdateNote")
 
-	targetName := c.Param("Name")
+	targetName := c.Param("Title")
 	if targetName == "" {
 		c.String(http.StatusBadRequest, "No name provided")
 		return
 	}
 
-	s.Processor().FindSpyFamilyCharacterName(c, targetName)
+	newContent := c.Param("Content")
+
+	s.Processor().UpdateNote(c, targetName, newContent)
+}
+
+func (s *Server) HTTPCreateNote(c *gin.Context) {
+	logger.SBILog.Infof("In HTTPCreateNote")
+
+	targetName := c.Param("Title")
+	if targetName == "" {
+		c.String(http.StatusBadRequest, "No name provided")
+		return
+	}
+
+	newContent := c.Param("Content")
+
+	s.Processor().CreateNote(c, targetName, newContent)
+}
+
+func (s *Server) HTTPNoteWhitespaceAppend(c *gin.Context) {
+	logger.SBILog.Infof("In HTTPNoteAppend")
+
+	targetName := c.Param("Title")
+	if targetName == "" {
+		c.String(http.StatusBadRequest, "No name provided")
+		return
+	}
+
+	newContent := c.Param("Content_append")
+	if newContent == "" {
+		c.String(http.StatusBadRequest, "No name provided")
+		return
+	}
+
+	s.Processor().NoteWhitespaceAppend(c, targetName, newContent)
 }
