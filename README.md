@@ -23,6 +23,12 @@ make
 "Character: Loid Forger"
 
 > curl -X GET http://127.0.0.163:8000/notebook/User_Guide
+> curl -X PUT http://127.0.0.163:8000/notebook/new_note_title/content
+> curl -X POST http://127.0.0.163:8000/notebook/new_note_title/Content
+> curl -X POST http://127.0.0.163:8000/notebook/new_note_title/append/can't
+> curl -X POST http://127.0.0.163:8000/notebook/new_note_title/append/contain
+> curl -X POST http://127.0.0.163:8000/notebook/new_note_title/append/whitespaces.
+> curl -X GET http://127.0.0.163:8000/notebook/new_note_title
 ```
 
 ## Go Test
