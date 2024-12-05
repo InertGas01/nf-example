@@ -21,6 +21,8 @@ make
 
 > curl -X GET http://127.0.0.163:8000/spyfamily/character/Loid
 "Character: Loid Forger"
+
+> curl -X GET http://127.0.0.163:8000/notebook/User_Guide
 ```
 
 ## Go Test
