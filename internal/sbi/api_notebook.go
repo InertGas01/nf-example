@@ -18,6 +18,15 @@ func (s *Server) getNotebookRoute() []Route {
 			// curl -X GET http://127.0.0.163:8000/spyfamily/ -w "\n"
 		},
 		{
+			Name:    "Create Note",
+			Method:  http.MethodPut,
+			Pattern: "/:Title/:Content",
+			APIFunc: s.HTTPCreateNote,
+			// Use
+			// curl -X GET http://127.0.0.163:8000/spyfamily/Anya -w "\n"
+			// "Character: Anya Forger"
+		},
+		{
 			Name:    "Update Note",
 			Method:  http.MethodPost,
 			Pattern: "/:Title/:Content",
@@ -31,15 +40,6 @@ func (s *Server) getNotebookRoute() []Route {
 			Method:  http.MethodPost,
 			Pattern: "/:Title/append/:Content_append",
 			APIFunc: s.HTTPNoteWhitespaceAppend,
-			// Use
-			// curl -X GET http://127.0.0.163:8000/spyfamily/Anya -w "\n"
-			// "Character: Anya Forger"
-		},
-		{
-			Name:    "Create Note",
-			Method:  http.MethodPut,
-			Pattern: "/:Title/:Content",
-			APIFunc: s.HTTPCreateNote,
 			// Use
 			// curl -X GET http://127.0.0.163:8000/spyfamily/Anya -w "\n"
 			// "Character: Anya Forger"
