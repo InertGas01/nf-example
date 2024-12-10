@@ -1,4 +1,4 @@
-//nolint:gosec
+//nolint:dupl
 package sbi_test
 
 import (
