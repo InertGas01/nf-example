@@ -3,7 +3,6 @@ package processor
 import (
 	"fmt"
 	"net/http"
-
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -35,9 +34,11 @@ func (p *Processor) CreateNote(c *gin.Context, targetName string, newContent str
 		c.String(http.StatusOK, fmt.Sprintf("Title: %s\nContent:\n\t%s\n", targetName, content))
 		return
 	} else if ok {
-		c.String(http.StatusForbidden, fmt.Sprintf("[%s] already exist. Please use POST to modify the content.\n", targetName))
+		c.String(http.StatusForbidden, fmt.Sprintf(
+			"[%s] already exist. Please use POST to modify the content.\n",
+			targetName),
+		)
 	}
-	//c.String(http.StatusNotFound, fmt.Sprintf("[%s] not found in Notebook", targetName))
 }
 
 func (p *Processor) NoteWhitespaceAppend(c *gin.Context, targetName string, newContent string) {
