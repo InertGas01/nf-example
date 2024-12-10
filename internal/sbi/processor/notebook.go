@@ -18,10 +18,9 @@ func (p *Processor) FindNote(c *gin.Context, targetName string) {
 }
 
 func (p *Processor) UpdateNote(c *gin.Context, targetName string, newContent string) {
-	if _, ok := p.Context().NoteData[targetName]; ok {
-		p.Context().NoteData[targetName] = newContent
+	p.Context().NoteData[targetName] = newContent
 
-		content := p.Context().NoteData[targetName]
+	if content, ok := p.Context().NoteData[targetName]; ok {
 		c.String(http.StatusOK, fmt.Sprintf("Title: %s\nContent:\n\t%s\n", targetName, content))
 		return
 	}

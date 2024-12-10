@@ -97,10 +97,6 @@ func (s *Server) HTTPNoteWhitespaceAppend(c *gin.Context) {
 	}
 
 	newContent := c.Param("Content_append")
-	if newContent == "" {
-		c.String(http.StatusBadRequest, "No name provided")
-		return
-	}
 
 	s.Processor().NoteWhitespaceAppend(c, targetName, newContent)
 }
