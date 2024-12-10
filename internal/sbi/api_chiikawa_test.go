@@ -1,3 +1,4 @@
+// nolint
 package sbi_test
 
 import (
